@@ -16,13 +16,13 @@ class QuoteDisplay extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 2,
       // color: Theme.of(context).colorScheme.onSurfaceVariant,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+      padding: const EdgeInsets.only(left: 20, right: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           AutoSizeText(
-            quote.text, 
+            quote.quote, 
             maxLines: 10,
             minFontSize: 12,
             overflow: TextOverflow.ellipsis,
