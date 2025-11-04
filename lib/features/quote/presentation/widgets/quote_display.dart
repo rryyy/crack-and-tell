@@ -14,39 +14,50 @@ class QuoteDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 2,
+      height: MediaQuery.of(context).size.height / 1.2,
       // color: Theme.of(context).colorScheme.onSurfaceVariant,
       padding: const EdgeInsets.only(left: 20, right: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          AutoSizeText(
-            quote.quote, 
-            maxLines: 10,
-            minFontSize: 12,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 40, 
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 20),
-          AutoSizeText(
-            quote.author, 
-            maxLines: 1,
-            minFontSize: 6,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 12, 
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      )
+      child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AutoSizeText(
+                        quote.quote, 
+                        maxLines: 10,
+                        minFontSize: 12,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 40, 
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      AutoSizeText(
+                        quote.author, 
+                        maxLines: 1,
+                        minFontSize: 6,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 12, 
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ) 
+            );
+          }
+        )
     );
   }
 }
