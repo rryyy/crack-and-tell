@@ -8,7 +8,8 @@ class AnimatedParticleBackground extends StatelessWidget {
 
   const AnimatedParticleBackground({
     super.key, 
-    required this.vsync, required this.child
+    required this.vsync, 
+    required this.child
   });
 
   @override
@@ -17,7 +18,8 @@ class AnimatedParticleBackground extends StatelessWidget {
       vsync: vsync, 
       behaviour: RandomParticleBehaviour(
         options: ParticleOptions(
-          baseColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          //baseColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          baseColor: Colors.white,
           spawnOpacity: 0.0,
           opacityChangeRate: 0.25,
           minOpacity: 0.1,
@@ -26,7 +28,7 @@ class AnimatedParticleBackground extends StatelessWidget {
           spawnMaxSpeed: 50.00,
           spawnMinRadius: 1.00,
           spawnMaxRadius: 50.00,
-          particleCount: 50,
+          particleCount: 20,
         )
       ),
       child: child

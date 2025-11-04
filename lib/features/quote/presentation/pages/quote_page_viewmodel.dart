@@ -1,9 +1,11 @@
+import 'package:crack_and_tell/core/utils/core_utils.dart';
 import 'package:crack_and_tell/features/quote/domain/entities/quote.dart';
 import 'package:crack_and_tell/features/quote/domain/usecases/fetch_quote_usecase.dart';
 import 'package:flutter/material.dart';
 
 class QuoteViewModel extends ChangeNotifier {
   final FetchQuoteUsecase _fetchQuote;
+  final backgroundColor = getRandomColor();
 
   QuoteViewModel({
     required FetchQuoteUsecase fetchQuote

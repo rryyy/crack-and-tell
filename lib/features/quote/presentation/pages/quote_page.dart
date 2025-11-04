@@ -27,7 +27,8 @@ class _QuotePageState extends State<QuotePage> with TickerProviderStateMixin{
     return ChangeNotifierProvider(
       create: (_) => _viewModel,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.onSurface,
+        //backgroundColor: Theme.of(context).colorScheme.onSurface,
+        backgroundColor: _viewModel.backgroundColor,
         body: AnimatedParticleBackground(
           vsync: this,
           child: Center(
