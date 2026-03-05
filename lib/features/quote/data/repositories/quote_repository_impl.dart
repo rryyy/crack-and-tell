@@ -1,4 +1,3 @@
-import 'package:crack_and_tell/core/domain/repositories/date_repository.dart';
 import 'package:crack_and_tell/features/quote/data/datasources/quote_local_data_source.dart';
 import 'package:crack_and_tell/features/quote/data/datasources/quote_remote_data_source.dart';
 import 'package:crack_and_tell/features/quote/data/models/quote_model.dart';

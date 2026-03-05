@@ -24,6 +24,7 @@ android/app/release/
 android/.gradle/
 android/local.properties
 android/app/*.keystore
+.idea/
 
 # iOS
 ios/Pods/
