@@ -10,5 +10,7 @@ abstract class QuoteApi {
   factory QuoteApi(Dio dio, {String baseUrl}) = _QuoteApi;
 
   @GET("/api/quotes/random")
-  Future<QuoteModel> fetchRandomQuote();
+  Future<QuoteModel> fetchRandomQuote({
+    @Query("tags") List<String>? tags
+  });
 }

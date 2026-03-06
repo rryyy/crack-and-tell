@@ -18,11 +18,11 @@ class QuoteViewModel extends ChangeNotifier {
   Quote? get quote => _quote;
   bool get isLoading => _isLoading;
 
-  Future<void> fetchRandomQuote() async {
+  Future<void> fetchRandomQuote(List<String>? tags) async {
     _isLoading = true;
     notifyListeners();
 
-    _quote = await _fetchQuote();
+    _quote = await _fetchQuote(tags);
 
     _isLoading = false;
     notifyListeners();

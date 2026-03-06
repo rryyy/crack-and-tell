@@ -1,6 +1,7 @@
 import 'package:crack_and_tell/core/domain/repositories/date_repository.dart';
 import 'package:crack_and_tell/features/quote/domain/entities/quote.dart';
 import 'package:crack_and_tell/features/quote/domain/repositories/quote_repository.dart';
+import 'package:flutter/material.dart';
 
 class FetchQuoteUsecase {
   final QuoteRepository _quoteRepository;
@@ -11,12 +12,19 @@ class FetchQuoteUsecase {
     this._dateRepository
   );
 
-  Future<Quote> call() async {
+  Future<Quote> call(List<String>? tags) async {
     if (await _shouldFetchNewQuote()) {
-      return _quoteRepository.fetchRandomQuote();
+      // TODO: Need to define whether tag is null or not
+      // if null, fetch random quote, else need to use join(',') to convert list to string 
+      // for query parameter
+      return _quoteRepository.fetchRandomQuote(tags: tags);
     }
 
     return _quoteRepository.fetchQuoteFromCache() ?? await _quoteRepository.fetchRandomQuote();
+  }
+
+  Future<void> fetchQuoteByTag(List<String> tags) async {
+    debugPrint(tags.toString());
   }
 
   Future<bool> _shouldFetchNewQuote() async {
@@ -34,7 +42,6 @@ class FetchQuoteUsecase {
     }
 
     return false;
-
   }
 
   bool _isSameDay(DateTime a, DateTime b) {

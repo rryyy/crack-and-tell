@@ -1,3 +1,4 @@
+import 'package:crack_and_tell/core/data/enums/moods.dart';
 import 'package:crack_and_tell/features/quote/presentation/pages/quote_page_viewmodel.dart';
 import 'package:crack_and_tell/features/quote/presentation/widgets/animated_particle_background.dart';
 import 'package:crack_and_tell/features/quote/presentation/widgets/quote_display.dart';
@@ -6,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class QuotePage extends StatefulWidget {
-  const QuotePage({super.key});
+  final Moods? mood;
+
+  const QuotePage({super.key, this.mood});
 
   @override
   State<QuotePage> createState() => _QuotePageState();
@@ -19,7 +22,13 @@ class _QuotePageState extends State<QuotePage> with TickerProviderStateMixin{
   void initState() {
     super.initState();
     _viewModel = sl<QuoteViewModel>();
-    _viewModel.fetchRandomQuote();
+
+    // if (widget.mood != null) {
+    //   _viewModel.fetchRandomQuote(widget.mood!.tags);
+    // } else {
+    //   _viewModel.fetchRandomQuote(null);
+    // }
+    _viewModel.fetchRandomQuote(widget.mood?.tags);
   }
 
   @override
@@ -27,7 +36,12 @@ class _QuotePageState extends State<QuotePage> with TickerProviderStateMixin{
     return ChangeNotifierProvider(
       create: (_) => _viewModel,
       child: Scaffold(
-        //backgroundColor: Theme.of(context).colorScheme.onSurface,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          scrolledUnderElevation: 0,
+        ),
         backgroundColor: _viewModel.backgroundColor,
         body: AnimatedParticleBackground(
           vsync: this,

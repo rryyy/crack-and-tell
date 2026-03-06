@@ -6,7 +6,7 @@ class QuoteRemoteDataSource {
 
   QuoteRemoteDataSource(this.quoteApi);
 
-  Future<QuoteModel> fetchRandomQuote() async {
-    return await quoteApi.fetchRandomQuote();
+  Future<QuoteModel> fetchRandomQuote({ List<String>? tags }) async {
+    return await quoteApi.fetchRandomQuote(tags: tags);
   }
 }

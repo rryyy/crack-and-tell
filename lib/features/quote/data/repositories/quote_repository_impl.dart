@@ -14,8 +14,8 @@ class QuoteRepositoryImpl implements QuoteRepository {
   );
   
   @override
-  Future<Quote> fetchRandomQuote() async {
-    final quote = await _remoteDataSource.fetchRandomQuote();
+  Future<Quote> fetchRandomQuote({ List<String>? tags }) async {
+    final quote = await _remoteDataSource.fetchRandomQuote(tags: tags);
     await cacheQuote(quote);
     return quote;
   }

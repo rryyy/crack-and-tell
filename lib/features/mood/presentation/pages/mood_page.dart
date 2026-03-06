@@ -11,6 +11,7 @@ class MoodPage extends StatefulWidget {
 }
 class _MoodPageState extends State<MoodPage> {
   Moods? selectedMood;
+  String? moodDescription;
   
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,12 @@ class _MoodPageState extends State<MoodPage> {
               spacing: 10,
               runSpacing: 10,
               children: Moods.values.map((mood) => buildMoodIcon(mood)).toList()              
+            ),
+            const SizedBox(height: 80),
+            Text(
+              selectedMood?.description ?? '',
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center            
             )
           ],
         ),
@@ -65,14 +72,24 @@ class _MoodPageState extends State<MoodPage> {
     );
   }
 
-  void onMoodSelected(Moods mood) {
+  void onMoodSelected(Moods mood) async {
     setState(() {
       selectedMood = mood;
     });
 
+    await Future.delayed(const Duration(milliseconds: 700));
+
+    if (!mounted) return;
+
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => const QuotePage())
+      MaterialPageRoute(
+        builder: (_) => QuotePage(mood: mood)
+      )
     );
+
+    setState(() {
+      selectedMood = null;
+    });
   }
 }
