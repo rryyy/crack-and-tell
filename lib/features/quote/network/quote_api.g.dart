@@ -22,7 +22,7 @@ class _QuoteApi implements QuoteApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<QuoteModel> fetchRandomQuote({List<String>? tags}) async {
+  Future<QuoteModel> fetchRandomQuote({String? tags}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'tags': tags};
     queryParameters.removeWhere((k, v) => v == null);

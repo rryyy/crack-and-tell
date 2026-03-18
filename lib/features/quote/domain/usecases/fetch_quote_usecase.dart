@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:crack_and_tell/core/domain/repositories/date_repository.dart';
+import 'package:crack_and_tell/core/utils/extensions/random_list.dart';
 import 'package:crack_and_tell/features/quote/domain/entities/quote.dart';
 import 'package:crack_and_tell/features/quote/domain/repositories/quote_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class FetchQuoteUsecase {
@@ -14,17 +18,35 @@ class FetchQuoteUsecase {
 
   Future<Quote> call(List<String>? tags) async {
     if (await _shouldFetchNewQuote()) {
-      // TODO: Need to define whether tag is null or not
-      // if null, fetch random quote, else need to use join(',') to convert list to string 
-      // for query parameter
-      return _quoteRepository.fetchRandomQuote(tags: tags);
+      if (tags?.isNotEmpty ?? false) {
+        const maxRetries = 5;
+        int attempt = 0;
+
+        while(attempt < maxRetries) {
+          final randomTags = tags!.randomSubset();
+          final tagString = randomTags.join(',');
+
+          try {
+            debugPrint('Trying tags: $tagString');
+
+            return await _quoteRepository.fetchRandomQuote(tags: tagString);
+          } on DioException catch (e) {
+            if (e.response?.statusCode == 404) {
+              attempt++;
+              debugPrint('404 with tags: $tagString -> retrying ($attempt)');
+              continue;
+            } else {
+              rethrow;
+            }
+          }
+        }
+
+        debugPrint('Max retries reached. Fetching without tags.');
+        return _quoteRepository.fetchRandomQuote();
+      } 
     }
 
     return _quoteRepository.fetchQuoteFromCache() ?? await _quoteRepository.fetchRandomQuote();
-  }
-
-  Future<void> fetchQuoteByTag(List<String> tags) async {
-    debugPrint(tags.toString());
   }
 
   Future<bool> _shouldFetchNewQuote() async {

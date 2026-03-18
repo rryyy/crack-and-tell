@@ -11,6 +11,6 @@ abstract class QuoteApi {
 
   @GET("/api/quotes/random")
   Future<QuoteModel> fetchRandomQuote({
-    @Query("tags") List<String>? tags
+    @Query("tags") String? tags
   });
 }
