@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:crack_and_tell/core/domain/repositories/date_repository.dart';
 import 'package:crack_and_tell/core/utils/extensions/random_list.dart';
 import 'package:crack_and_tell/features/quote/domain/entities/quote.dart';

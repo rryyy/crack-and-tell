@@ -17,7 +17,7 @@ class _MoodPageState extends State<MoodPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child:Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
