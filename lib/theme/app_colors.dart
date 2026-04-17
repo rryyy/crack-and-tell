@@ -71,6 +71,7 @@ class AppThemes {
     textTheme: GoogleFonts.interTextTheme(
       ThemeData.light().textTheme
     ),
+    //scaffoldBackgroundColor: const Color.fromARGB(255, 239, 236, 252),
     scaffoldBackgroundColor: AppColors.background,
     cardColor: AppColors.card,
     inputDecorationTheme: InputDecorationTheme(

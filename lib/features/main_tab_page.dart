@@ -1,7 +1,8 @@
-import 'package:crack_and_tell/features/home/presentation/pages/calendar_page.dart';
+import 'package:crack_and_tell/features/calendar/presentation/pages/calendar_page.dart';
 import 'package:crack_and_tell/features/home/presentation/pages/home_page.dart';
-import 'package:crack_and_tell/features/home/presentation/pages/insight_page.dart';
-import 'package:crack_and_tell/features/home/presentation/pages/journal_page.dart';
+import 'package:crack_and_tell/features/insight/presentation/pages/insight_page.dart';
+import 'package:crack_and_tell/features/journal/presentation/pages/journal_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MainTabPage extends StatefulWidget {
@@ -42,14 +43,14 @@ class _MainTabPageState extends State<MainTabPage> {
         items: [
           _buildTabItem(
             label: 'Home',
-            icon: Icons.home_outlined,
-            activeIcon: Icons.home_rounded,
+            icon: CupertinoIcons.house,
+            activeIcon: CupertinoIcons.house,
             index: 0
           ),
           _buildTabItem(
             label: 'Journal',
-            icon: Icons.book_online_outlined,
-            activeIcon: Icons.book_online_rounded,
+            icon: CupertinoIcons.pencil_outline,
+            activeIcon: CupertinoIcons.pencil_outline,
             index: 1
           ),
           _buildTabItem(
