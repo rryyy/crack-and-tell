@@ -8,17 +8,12 @@ class QuoteModel extends Quote {
   final int length;
 
   QuoteModel({
-    required int id,
-    required String quote,
-    required String author,
-    required List<String> tags,
+    required super.id,
+    required super.quote,
+    required super.author,
+    required super.tags,
     required this.length
-  }) : super(
-          id: id,
-          quote: quote,
-          author: author,
-          tags: tags,
-        );
+  });
   
   factory QuoteModel.fromJson(Map<String, dynamic> json) => _$QuoteModelFromJson(json);
   Map<String, dynamic> toJson() => _$QuoteModelToJson(this);

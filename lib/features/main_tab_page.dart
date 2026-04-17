@@ -4,88 +4,66 @@ import 'package:crack_and_tell/features/insight/presentation/pages/insight_page.
 import 'package:crack_and_tell/features/journal/presentation/pages/journal_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class MainTabPage extends StatefulWidget {
-  const MainTabPage({super.key});
 
-  @override
-  State<MainTabPage> createState() => _MainTabPageState();
-}
+class MainTabPage extends StatelessWidget {
+  const MainTabPage({ super.key, required this.child });
 
-class _MainTabPageState extends State<MainTabPage> {
-  int _currentIndex = 0;
-
-  final List<Widget> _pages = const [
-    HomePage(),
-    JournalPage(),
-    CalendarPage(),
-    InsightPage()
-  ];
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
+    final location = GoRouterState.of(context).uri.toString();
+
+    int currentIndex = 0;
+    if (location.startsWith('/journal')) currentIndex = 1;
+    if (location.startsWith('/calendar')) currentIndex = 2;
+    if (location.startsWith('/insight')) currentIndex = 3;
+
     return Scaffold(
-      // IndexedStack keeps ALL pages alive in memory even when not visible.
-      // This means your scroll position and state is preserved when you switch tabs.
-      // Without this, each tab would rebuild from scratch every time.
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
+      body: child,
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
+        currentIndex: currentIndex,
         onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+          // setState(() {
+          //   _currentIndex = index;
+          // });
+          switch (index) {
+            case 0:
+              context.go('/home');
+              break;
+            case 1:
+              context.go('/journal');
+              break;
+            case 2:
+              context.go('/calendar');
+              break;
+            case 3:
+              context.go('/insight');
+              break;
+          }
         },
         type: BottomNavigationBarType.fixed,
-        items: [
-          _buildTabItem(
-            label: 'Home',
-            icon: CupertinoIcons.house,
-            activeIcon: CupertinoIcons.house,
-            index: 0
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.house),
+            label: 'Home'
           ),
-          _buildTabItem(
-            label: 'Journal',
-            icon: CupertinoIcons.pencil_outline,
-            activeIcon: CupertinoIcons.pencil_outline,
-            index: 1
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.pencil_outline),
+            label: 'Journal'
           ),
-          _buildTabItem(
-            label: 'Calendar',
-            icon: Icons.calendar_month_outlined,
-            activeIcon: Icons.calendar_month_rounded,
-            index: 2
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month_outlined),
+            label: 'Calendar'
           ),
-          _buildTabItem(
-            label: 'Insight',
-            icon: Icons.insights_outlined,
-            activeIcon: Icons.insights_rounded,
-            index: 3
-          )
+          BottomNavigationBarItem(
+            icon: Icon(Icons.insights_outlined),
+            label: 'Insight'
+          ),
         ]
       )
-    );
-  }
-
-  // This helper method builds each BottomNavigationBarItem.
-  // We check _currentIndex to decide which image version to show.
-  BottomNavigationBarItem _buildTabItem({
-    required String label,
-    required IconData icon,
-    required IconData activeIcon,
-    required int index
-  }) {
-    final bool isActive = _currentIndex == index;
-
-    return BottomNavigationBarItem(
-      icon: Icon(
-      isActive ? activeIcon : icon,
-      size: 25.0,
-    ),
-      label: label,
     );
   }
 }
